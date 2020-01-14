@@ -1,7 +1,6 @@
 package dao.custom.impl;
 
 
-import dao.CrudUtil;
 import dao.custom.QueryDAO;
 import entity.CustomEntity;
 

@@ -1,6 +1,6 @@
 package dao.custom.impl;
 
-import dao.CrudUtil;
+import dao.CrudDAOImpl;
 import dao.custom.CustomerDAO;
 import entity.Customer;
 
@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDAOImpl implements CustomerDAO {
+public class CustomerDAOImpl extends CrudDAOImpl implements CustomerDAO {
 
     @Override
     public String getLastCustomerId() throws Exception {
