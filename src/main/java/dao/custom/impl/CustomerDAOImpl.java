@@ -12,7 +12,7 @@ public class CustomerDAOImpl extends CrudDAOImpl implements CustomerDAO {
 
     @Override
     public String getLastCustomerId() throws Exception {
-        ResultSet rst = CrudUtil.execute("SELECT customerId FROM Customer ORDER BY customerId DESC LIMIT 1");
+        ResultSet rst = .execute("SELECT customerId FROM Customer ORDER BY customerId DESC LIMIT 1");
         if (rst.next()) {
             return rst.getString(1);
         }

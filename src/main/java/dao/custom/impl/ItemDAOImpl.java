@@ -1,6 +1,7 @@
 package dao.custom.impl;
 
 
+import dao.CrudDAOImpl;
 import dao.custom.ItemDAO;
 import entity.Item;
 
@@ -8,7 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDAOImpl implements ItemDAO {
+public class ItemDAOImpl extends CrudDAOImpl implements ItemDAO {
 
     @Override
     public String getLastItemCode() throws Exception {

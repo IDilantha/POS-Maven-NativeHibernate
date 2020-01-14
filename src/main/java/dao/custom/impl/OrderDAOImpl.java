@@ -1,5 +1,6 @@
 package dao.custom.impl;
 
+import dao.CrudDAOImpl;
 import dao.custom.OrderDAO;
 import entity.Order;
 
@@ -7,7 +8,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDAOImpl implements OrderDAO {
+public class OrderDAOImpl extends CrudDAOImpl implements OrderDAO {
 
     @Override
     public int getLastOrderId() throws Exception {
