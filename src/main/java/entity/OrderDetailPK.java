@@ -3,9 +3,10 @@ package entity;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Embeddable
-public class OrderDetailPK {
+public class OrderDetailPK implements Serializable {
 
     @Column(name = "orderId")
     private int orderId;
