@@ -1,11 +1,22 @@
 package entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class Item implements SuperEntity {
 
+    @Id
     private String code;
     private String description;
     private double unitPrice;
     private int qtyOnHand;
+
+    @OneToMany(mappedBy = "item")
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
     public Item() {
     }
@@ -47,6 +58,15 @@ public class Item implements SuperEntity {
 
     public void setQtyOnHand(int qtyOnHand) {
         this.qtyOnHand = qtyOnHand;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void addOrderDetails(OrderDetail orderDetail) {
+        orderDetail.setItem(this);
+        this.orderDetails.add(orderDetail);
     }
 
     @Override
