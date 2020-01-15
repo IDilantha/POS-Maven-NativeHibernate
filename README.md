@@ -1,6 +1,6 @@
 
 
-# Point of Sale System with Maven (Layered Architecture)
+# Point of Sale System with Maven and Native Hibernate (Layered Architecture)
 
 Getting Started
 
@@ -11,6 +11,7 @@ Built With
 This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section.
 
 Maven
+Native Hibernate
 
 Requirement
 
