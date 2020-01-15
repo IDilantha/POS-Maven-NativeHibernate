@@ -20,6 +20,9 @@ import java.util.Properties;
 public class HibernateUtil {
     private static String username;
     private static String password;
+    private static String db;
+    private static String port;
+    private static String ip;
 
     private static SessionFactory sessionFactory = buildSessionFactory();
 
@@ -35,6 +38,9 @@ public class HibernateUtil {
         }
         username = DEPCrypt.decode(properties.getProperty("hibernate.connection.username"),"123");
         password = DEPCrypt.decode(properties.getProperty("hibernate.connection.password"),"123");
+        db = properties.getProperty("pos.db");
+        port = properties.getProperty("pos.port");
+        ip = properties.getProperty("pos.ip");
 
         StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
                 .loadProperties(file)
@@ -57,5 +63,25 @@ public class HibernateUtil {
 
     public static SessionFactory getSessionFactory(){
         return sessionFactory;
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static String getDb() {
+        return db;
+    }
+
+    public static String getPort() {
+        return port;
+    }
+
+    public static String getIp() {
+        return ip;
     }
 }
