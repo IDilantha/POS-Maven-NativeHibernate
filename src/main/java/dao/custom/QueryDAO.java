@@ -17,6 +17,6 @@ public interface QueryDAO extends SuperDAO {
      * @return
      * @throws Exception
      */
-    List<CustomEntity> getOrdersInfo(String query) throws Exception;
+    List<CustomEntity> getOrdersInfo() throws Exception;
 
 }

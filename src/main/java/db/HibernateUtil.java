@@ -28,7 +28,6 @@ public class HibernateUtil {
 
     private static SessionFactory buildSessionFactory() {
         File file = new File("src/main/resources/application.properties");
-        System.out.println(file.exists());
         Properties properties = new Properties();
 
         try(FileInputStream fis = new FileInputStream(file)){

@@ -6,6 +6,7 @@ import entity.CustomEntity;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -18,67 +19,44 @@ public class QueryDAOImpl implements QueryDAO {
 
     @Override
     public CustomEntity getOrderInfo(int orderId) throws Exception {
-        return (CustomEntity) session.createQuery("SELECT NEW entity.CustomEntity(O.id,C.id,C.name,O.date) FROM Customer C " +
-                "INNER JOIN C.orders O WHERE O.id=?1")
+        return  session.createQuery("SELECT NEW entity.CustomEntity(O.id,C.customerId,C.name,O.date) FROM Customer C " +
+                "INNER JOIN C.orders O WHERE O.id=?1",CustomEntity.class)
                 .setParameter(1, orderId)
                 .uniqueResult();
 
     }
 
 
-/*
+
     @Override
     public CustomEntity getOrderInfo2(int orderId) throws Exception {
-        NativeQuery nativeQuery = session.createNativeQuery("SELECT O.id, C.customerId, C.name, O.date, SUM(OD.qty * OD.unitPrice) AS Total  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customerId\" +\n" +
-                "                \" INNER JOIN OrderDetail OD on O.id = OD.orderId WHERE O.id=? GROUP BY orderId");
-        nativeQuery.setParameter(1,orderId);
+        return (CustomEntity) session.createQuery("SELECT NEW entity.CustomEntity(O.id, C.customerId, C.name, O.date, SUM(OD.qty * OD.unitPrice)) " +
+                " FROM Customer C " +
+                "INNER JOIN C.orders O INNER JOIN O.orderDetails OD WHERE O.id=?1 GROUP BY O.id",CustomEntity.class).setParameter(1,orderId);
 
-        if (rst.next()){
-            return new CustomEntity(rst.getInt(1),
-                    rst.getString(2),
-                    rst.getString(3),
-                    rst.getDate(4),
-                    rst.getDouble(5));
-        }else{
-            return null;
-        }
+/*
+
+        Query<CustomEntity> query = session.
+                createQuery("SELECT NEW lk.ijse.dep.entity.CustomEntity(o.id, " +
+                        "o.date, c.id , c.name , " +
+                        "SUM(od.qty * od.unitPrice)) FROM Order o " +
+                        "INNER JOIN o.orderDetails od " +
+                        "INNER JOIN o.customer c GROUP BY o.id", CustomEntity.class);
+*/
+
     }
 
     @Override
-    public List<CustomEntity> getOrdersInfo(String query) throws Exception {
-        NativeQuery nativeQuery = session.createNativeQuery("SELECT O.id, C.customerId, C.name, O.date, SUM(OD.qty * OD.unitPrice) AS Total  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customerId " +
-                "INNER JOIN OrderDetail OD on O.id = OD.orderId WHERE O.id LIKE ? OR C.customerId LIKE ? OR C.name LIKE ? OR O.date LIKE ? GROUP BY O.id");
-        nativeQuery.setParameter(1,query);
-        nativeQuery.setParameter(2,query);
-        nativeQuery.setParameter(3,query);
-        nativeQuery.setParameter(4,query);
-
-        List<CustomEntity> al = new ArrayList<>();
-        while (rst.next()){
-            al.add(new CustomEntity(rst.getInt(1),
-                    rst.getString(2),
-                    rst.getString(3),
-                    rst.getDate(4),
-                    rst.getDouble(5)));
-        }
-        return al;
+    public List<CustomEntity> getOrdersInfo() throws Exception {
+        NativeQuery nativeQuery = session.createNativeQuery("SELECT O.id as orderId, C.customerId as customerId, C.name as customerName, O.date as orderDate, SUM(OD.qty * OD.unitPrice) AS orderTotal  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customerId INNER JOIN  OrderDetail OD on O.id = OD.orderId GROUP BY O.id ");
+        Query<CustomEntity> query = nativeQuery.setResultTransformer(Transformers.aliasToBean(CustomEntity.class));
+        List<CustomEntity> list = query.list();
+        return list;
     }
-*/
 
     @Override
     public void setSession(Session session) {
         this.session=session;
     }
 
-
-
-    @Override
-    public CustomEntity getOrderInfo2(int orderId) throws Exception {
-        return null;
-    }
-
-    @Override
-    public List<CustomEntity> getOrdersInfo(String query) throws Exception {
-        return null;
-    }
 }

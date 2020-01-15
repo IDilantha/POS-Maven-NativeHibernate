@@ -85,8 +85,8 @@ public class SearchOrdersFormController {
 
     public void loadTable() throws Exception {
 
-        List<OrderDTO2> orderInfo = orderBO.getOrderInfo('%' + txtSearch.getText() + '%');
-        System.out.println(orderBO.getOrderInfo('%' + txtSearch.getText() + '%'));
+        List<OrderDTO2> orderInfo = orderBO.getOrderInfo();
+        //System.out.println(orderBO.getOrderInfo('%' + txtSearch.getText() + '%'));
         ObservableList<OrderTM> items = tblOrders.getItems();
         items.clear();
 

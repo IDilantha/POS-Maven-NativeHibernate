@@ -63,16 +63,15 @@ public class OrderBOImpl implements OrderBO {
     }
 
     @Override
-    public List<OrderDTO2> getOrderInfo(String query) throws Exception {
+    public List<OrderDTO2> getOrderInfo() throws Exception {
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
             queryDAO.setSession(session);
             session.beginTransaction();
 
-            List<CustomEntity> ordersInfo = queryDAO.getOrdersInfo(query + "%");
+            List<CustomEntity> ordersInfo = queryDAO.getOrdersInfo();
             List<OrderDTO2> dtos = new ArrayList<>();
             for (CustomEntity info : ordersInfo) {
-                dtos.add(new OrderDTO2(info.getOrderId(),
-                        info.getOrderDate(),info.getCustomerId(),info.getCustomerName(),info.getOrderTotal()));
+                dtos.add(new OrderDTO2(info.getOrderId(),info.getOrderDate(),info.getCustomerId(),info.getCustomerName(),info.getOrderTotal()));
             }
             session.getTransaction().commit();
             return dtos;
