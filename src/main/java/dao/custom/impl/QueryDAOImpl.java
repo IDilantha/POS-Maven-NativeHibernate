@@ -5,6 +5,7 @@ import dao.custom.QueryDAO;
 import entity.CustomEntity;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,22 +14,19 @@ import java.util.List;
 public class QueryDAOImpl implements QueryDAO {
 
     protected Session session;
-/*
+
 
     @Override
     public CustomEntity getOrderInfo(int orderId) throws Exception {
-        NativeQuery nativeQuery = session.createNativeQuery("SELECT C.customerId, C.name, O.date  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customerId WHERE O.id=?");
-        nativeQuery.setParameter(1,orderId);
-        if (rst.next()){
-            return new CustomEntity(orderId,
-                    rst.getString(1),
-                    rst.getString(2),
-                    rst.getDate(3));
-        }else{
-            return null;
-        }
+        return (CustomEntity) session.createQuery("SELECT NEW entity.CustomEntity(O.id,C.id,C.name,O.date) FROM Customer C " +
+                "INNER JOIN C.orders O WHERE O.id=?1")
+                .setParameter(1, orderId)
+                .uniqueResult();
+
     }
 
+
+/*
     @Override
     public CustomEntity getOrderInfo2(int orderId) throws Exception {
         NativeQuery nativeQuery = session.createNativeQuery("SELECT O.id, C.customerId, C.name, O.date, SUM(OD.qty * OD.unitPrice) AS Total  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customerId\" +\n" +
@@ -72,10 +70,7 @@ public class QueryDAOImpl implements QueryDAO {
         this.session=session;
     }
 
-    @Override
-    public CustomEntity getOrderInfo(int orderId) throws Exception {
-        return null;
-    }
+
 
     @Override
     public CustomEntity getOrderInfo2(int orderId) throws Exception {

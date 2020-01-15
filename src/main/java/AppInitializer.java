@@ -28,7 +28,7 @@ public class AppInitializer extends Application {
         fileHandler.setLevel(Level.INFO);
         rootLogger.addHandler(fileHandler);
 
-        DBConnection.getInstance().getConnection();
+
         URL resource = this.getClass().getResource("/view/MainForm.fxml");
         Parent root = FXMLLoader.load(resource);
         Scene mainScene = new Scene(root);
