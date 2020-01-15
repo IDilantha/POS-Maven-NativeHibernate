@@ -4,7 +4,6 @@ import business.custom.OrderBO;
 import dao.DAOFactory;
 import dao.DAOTypes;
 import dao.custom.*;
-import db.DBConnection;
 import db.HibernateUtil;
 import dto.OrderDTO;
 import dto.OrderDTO2;
@@ -15,7 +14,6 @@ import entity.Order;
 import entity.OrderDetail;
 import org.hibernate.Session;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

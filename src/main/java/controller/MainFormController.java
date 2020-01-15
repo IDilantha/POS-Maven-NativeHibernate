@@ -1,7 +1,6 @@
 package controller;
 
 import com.jfoenix.controls.JFXProgressBar;
-import db.DBConnection;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
