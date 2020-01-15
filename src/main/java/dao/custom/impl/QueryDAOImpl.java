@@ -13,6 +13,7 @@ import java.util.List;
 public class QueryDAOImpl implements QueryDAO {
 
     protected Session session;
+/*
 
     @Override
     public CustomEntity getOrderInfo(int orderId) throws Exception {
@@ -64,9 +65,25 @@ public class QueryDAOImpl implements QueryDAO {
         }
         return al;
     }
+*/
 
     @Override
     public void setSession(Session session) {
         this.session=session;
+    }
+
+    @Override
+    public CustomEntity getOrderInfo(int orderId) throws Exception {
+        return null;
+    }
+
+    @Override
+    public CustomEntity getOrderInfo2(int orderId) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<CustomEntity> getOrdersInfo(String query) throws Exception {
+        return null;
     }
 }

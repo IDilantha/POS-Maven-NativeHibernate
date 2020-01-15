@@ -5,6 +5,7 @@ import dao.CrudDAOImpl;
 import dao.custom.OrderDetailDAO;
 import entity.OrderDetail;
 import entity.OrderDetailPK;
+import org.hibernate.query.NativeQuery;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ public class OrderDetailDAOImpl extends CrudDAOImpl<OrderDetail,OrderDetailPK> i
 
     @Override
     public boolean existsByItemCode(String itemCode) throws Exception {
-        return (boolean) session.createNativeQuery("SELECT * FROM OrderDetail WHERE itemCode=?1").setParameter(1,itemCode).uniqueResult();
+        NativeQuery nativeQuery = session.createNativeQuery("SELECT * FROM OrderDetail WHERE itemCode=?");
+        nativeQuery.setParameter(1,itemCode);
+        return nativeQuery.uniqueResult() != null ;
     }
 }

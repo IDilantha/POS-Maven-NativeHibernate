@@ -9,6 +9,7 @@ import dao.custom.OrderDAO;
 import db.HibernateUtil;
 import dto.CustomerDTO;
 import entity.Customer;
+import javafx.scene.control.Alert;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
@@ -44,10 +45,12 @@ public class CustomerBOImpl implements CustomerBO {
     public void deleteCustomer(String customerId) throws Exception {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             customerDAO.setSession(session);
+            orderDAO.setSession(session);
             session.beginTransaction();
 
             if (orderDAO.existsByCustomerId(customerId)) {
-                throw new AlreadyExistsInOrderException("Customer already exists in an order, hence unable to delete");
+                new Alert(Alert.AlertType.ERROR,"Customer Already exist in an order , Unable to Delete");
+                return;
             }
             customerDAO.delete(customerId);
             session.getTransaction().commit();
@@ -60,7 +63,6 @@ public class CustomerBOImpl implements CustomerBO {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             customerDAO.setSession(session);
             session.beginTransaction();
-
 
             List<Customer> alCustomers = customerDAO.findAll();
             List<CustomerDTO> dtos = new ArrayList<>();
